@@ -1,6 +1,5 @@
-
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-1" # Change as needed
 }
 
 resource "aws_vpc" "main_vpc" {
@@ -51,17 +50,12 @@ resource "aws_s3_bucket" "my_bucket" {
 
 resource "aws_iam_role" "lambda_exec_role" {
   name               = "lambda_exec_role"
-  assume_role_policy = "${file("assume_role_policy.json")}"
+  assume_role_policy = "${file("assume_role_policy.json")}" # Define JSON separately
 }
 
 resource "aws_iam_policy" "lambda_s3_access_policy" {
   name   = "lambda_s3_access_policy"
-  policy = "${file("policy.json")}"
-}
-
-resource "aws_iam_role_policy_attachment" "lambda_exec_role_attach" {
-  role       = aws_iam_role.lambda_exec_role.name
-  policy_arn = aws_iam_policy.lambda_s3_access_policy.arn
+  policy = "${file("policy.json")}" # Define JSON separately
 }
 
 resource "aws_security_group" "lambda_sg" {
@@ -71,7 +65,6 @@ resource "aws_security_group" "lambda_sg" {
     Name = "lambda_sg"
   }
 }
-
 resource "aws_lambda_function" "my_lambda_function" {
   function_name = "my_lambda_function"
   role          = aws_iam_role.lambda_exec_role.arn
@@ -84,3 +77,5 @@ resource "aws_lambda_function" "my_lambda_function" {
     security_group_ids = [aws_security_group.lambda_sg.id]
   }
 }
+
+
