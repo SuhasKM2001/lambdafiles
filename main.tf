@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1" # Change as needed
+  region = "us-east-1"
 }
 
 resource "aws_vpc" "main_vpc" {
@@ -50,7 +50,7 @@ resource "aws_s3_bucket" "my_bucket" {
 
 resource "aws_iam_role" "lambda_exec_role" {
   name               = "lambda_exec_role"
-  assume_role_policy = "${file("assume_role_policy.json")}" # Define JSON separately
+  assume_role_policy = "${file("assume_role_policy.json")}"
 }
 
 resource "aws_iam_policy" "lambda_s3_access_policy" {
